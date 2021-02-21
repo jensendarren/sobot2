@@ -9,6 +9,9 @@
 # move said applications out of the umbrella.
 import Config
 
+config :logger,
+  level: :debug
+
 # Sample configuration:
 #
 #     config :logger, :console,
