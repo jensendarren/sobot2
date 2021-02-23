@@ -10,12 +10,8 @@
 import Config
 
 config :logger,
-  level: :debug
+  level: :info
 
-# Sample configuration:
-#
-#     config :logger, :console,
-#       level: :info,
-#       format: "$date $time [$level] $metadata$message\n",
-#       metadata: [:user_id]
-#
+config :binance,
+  api_key: "YOUR-API-KEY-HERE",
+  secret_key: "YOUR-SECRET-KEY-HERE"

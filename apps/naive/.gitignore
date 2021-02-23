@@ -19,9 +19,9 @@ erl_crash.dump
 # Also ignore archive artifacts (built via "mix archive.build").
 *.ez
 
+# Ignore package tarball (built via "mix hex.build").
+naive-*.tar
+
 
 # Temporary files for e.g. tests
 /tmp
-
-# Private env config
-/config/.env
