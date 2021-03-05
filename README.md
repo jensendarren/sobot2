@@ -50,7 +50,7 @@ Streamer.start_streaming("NEOUSDT")
 Naive.start_trading("NEOUSDT")
 ```
 
-You can also start an Elixir observer like so (from withing the iex session):
+You can also start an Elixir observer like so (from within the iex session):
 
 ```
 :observer.start()
