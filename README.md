@@ -2,6 +2,21 @@
 
 A trading bot built in Elixir. Based on [frathon/hedgehog](https://github.com/frathon/hedgehog).
 
+## Install deps
+
+Run `mix deps.get` to install the project dependencies.
+
+## Troubleshooting
+
+If you see the following error: `(CaseClauseError) no case clause matching ...` then it could mean that you are possibly using an outdated library. Try removing the `_build` directory, reinstalling dependencies, recompiling the app and then trying again:
+
+```elixir
+rm -rf _build
+mix deps.get
+iex -S mix
+# now run the app again!
+```
+
 ## Running the app (with the live Binance client)
 
 First add your Binance API keys to the app [config](./config/config.exs) file.
