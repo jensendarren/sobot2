@@ -1,23 +1,22 @@
-defmodule DataWarehouse.Subscribers.Worker do
+defmodule DataWarehouse.Subscriber.Worker do
   use GenServer
 
   require Logger
 
   defmodule State do
-    @enforce_keys [:stream_name, :symbol]
-    defstruct [:stream_name, :symbol]
+    @enforce_keys [:topic]
+    defstruct [:topic]
   end
 
-  def start_link(%{stream_name: stream_name, symbol: symbol} = args) do
+  def start_link(topic) do
     GenServer.start_link(
       __MODULE__,
-      args,
-      name: :"#{__MODULE__}-#{stream_name}-#{symbol}"
+      topic,
+      name: via_tuple(topic)
     )
   end
 
-  def init(%{stream_name: stream_name, symbol: symbol} = args) do
-    topic = "#{stream_name}:#{symbol}"
+  def init(topic) do
     Logger.info("DataWarehouse worker is subscribing to #{topic}")
 
     Phoenix.PubSub.subscribe(
@@ -25,7 +24,10 @@ defmodule DataWarehouse.Subscribers.Worker do
       topic
     )
 
-    {:ok, struct!(State, args)}
+    {:ok,
+     %State{
+       topic: topic
+     }}
   end
 
   def handle_info(%Streamer.Binance.TradeEvent{} = trade_event, state) do
@@ -57,5 +59,9 @@ defmodule DataWarehouse.Subscribers.Worker do
     )
 
     {:noreply, state}
+  end
+
+  defp via_tuple(topic) do
+    {:via, Registry, {:subscriber_workers, topic}}
   end
 end
